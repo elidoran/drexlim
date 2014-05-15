@@ -1,4 +1,5 @@
-biolog
+Drexlim
 ======
 
-Log bio samples
+Drexel University Laboratory Information Management
+
