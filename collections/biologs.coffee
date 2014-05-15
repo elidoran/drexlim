@@ -60,13 +60,13 @@ Meteor.methods
       dna: biologData.dna
       studyCode: biologData.studyCode
       tissue: biologData.tissue
-      subject:
-        familyName: biologData.familyName
-        code: biologData.subjectCode
-        firstName: biologData.firstName
-        middleName: biologData.middleName
-        dob: biologData.dob
-        sex: biologData.sex
+      #subject:
+      #  familyName: biologData.familyName
+      #  code: biologData.subjectCode
+      #  firstName: biologData.firstName
+      #  middleName: biologData.middleName
+      #  dob: biologData.dob
+      #  sex: biologData.sex
       collectedDate: biologData.collectedDate
       receivedDate: biologData.receivedData
       tissueBanking: biologData.tissueBanking
@@ -76,12 +76,9 @@ Meteor.methods
         byId: user._id
         byName: user.profile.name
         date: new Date().getTime()
-      storage:
-        container: biologData.storageContainer
-        location: biologData.storageLocation
+      storageLocationId: biologData.storageLocationId
       comments: biologData.comments
-      #organismType: biologData.organismType
-    
+
     Biologs.insert biolog, (error, biologId) ->
       if error
         throw new Meteor.Error 500, 'Unable to store new Biolog'

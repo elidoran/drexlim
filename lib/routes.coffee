@@ -11,8 +11,10 @@ Router.configure
 
 Router.map () ->
 
-  this.route 'biologs', { path: '/' }
-
+  this.route 'biologs',       { path: '/' }
+  this.route 'biologSubmit',  {}
+  this.route 'biologEdit',    {}
+  
 #  this.route 'login', { path: 'login' }
 
 #  this.route 'user'
