@@ -1,12 +1,38 @@
 <template name="biologList">
 
-{{#if biologs}}
-  {{#each biologs}}
-    {{> biologItem }}
-  {{/each}}
+{{#if biologsCount}}
+  
+  {{> biologFilter}}
+  
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>HS#</th>
+          <th>DNA#</th>
+          <th>Subject Code</th>
+          <th>Study Code</th>
+          <th>Tissue</th>
+          <th>Tissue Banking</th>
+          <th>Collected Date</th>
+          <th>Received Date</th>
+          <th>Storage Location</th>
+          <th>Collaborator</th>
+          <th>Logged By</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each biologs}}
+          {{> biologItem }}
+        {{/each}}
+    </tbody>
+      </table>
+  </div>
+  
 {{else}}
   <li class="list-group-item list-group-item-warning">
-    <h4 class="list-group-item-heading">No Biologs available. <a href="{{pathFor 'biologSubmit'}}">Add one</a> </h4>          
+    <h4 class="list-group-item-heading">None available. <a href="{{pathFor 'biologSubmit'}}">Add one</a>? </h4>          
   </li>
 {{/if}}
   

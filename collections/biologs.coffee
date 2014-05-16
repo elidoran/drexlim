@@ -21,17 +21,17 @@
 @Biologs = new Meteor.Collection 'biologs'
 
 Biologs.allow
+  insert: -> true
   update: -> true
   remove: -> true
 
 Biologs.deny
   update: (userId, workday, fieldNames) ->
     # may only edit the following field:
-    #(_.without(fieldNames, 'note').length > 0)
-    # can change the note?
+    (_.without(fieldNames, 'hs').length > 0)
     # check permissions to see what the user is allowed to do
     # based on whether they own it, what they're changing, ...
-    false
+    #false
     
 Meteor.methods
 
@@ -46,13 +46,11 @@ Meteor.methods
     #unless biologData.?
     #  throw new Meteor.Error 422, 'Provide ...'
 
-    # check if this biolog has already been entered... how? which data is unique?
-    #sameBiolog = Worktimes.findOne 
-    #  userId: timeEntryData.userId ? user._id
-    #  term: taskData.term
-    #if sameBiolog
-    #  throw new Meteor.Error 302, 'Biolog has already been added',
-    #      taskWithSameTerm._id
+    # check if this biolog has already been entered...
+    biologWithSameHS = Biologs.findOne { hs: biologData.hs}
+    if biologWithSameHS
+      throw new Meteor.Error 302, 'Biolog has already been added with that HS#',
+        biologWithSameHS._id
 
     # pull out the data we want from the client supplied data
     biolog =

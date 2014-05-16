@@ -13,7 +13,13 @@ Router.map () ->
 
   this.route 'biologs',       { path: '/' }
   this.route 'biologSubmit',  {}
-  this.route 'biologEdit',    {}
+  this.route 'biologEdit',
+    path: '/biologEdit/:_id' 
+    data: -> Biologs.findOne this.params._id
+  this.route 'biologView',
+    path: '/biologView/:_id' 
+    data: -> Biologs.findOne this.params._id
+
   
 #  this.route 'login', { path: 'login' }
 
