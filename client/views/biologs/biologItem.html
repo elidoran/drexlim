@@ -6,7 +6,7 @@
   <td>{{subjectCode}}</td>
   <td>{{studyCode}}</td>
   <td>{{tissue.value}}</td>
-  <td>{{tissue.banking}}</td>
+  <td>{{#if tissue.banking}}<span class="text-success">Yes</span>{{else}}<span class="text-danger">No</span>{{/if}}</td>
   <td>{{collectedDate}}</td>
   <td>{{receivedDate}}</td>
   <td>{{collaborator.name}}</td>

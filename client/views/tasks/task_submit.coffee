@@ -14,8 +14,8 @@ addTerm = (e) ->
         term: term
   
       Meteor.call 'newTask', taskData, (error, id) ->
-        if error then throwError error.reason
+        if error then notifyError error.reason
     
     else
-      throwError 'Please enter a term'
+      notifyError 'Please enter a term'
 

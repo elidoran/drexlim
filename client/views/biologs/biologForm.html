@@ -1,13 +1,11 @@
-<template name="biologEdit">
-
-{{> biologsBar}}
-
-<form id="addBiologForm" role="form" class="form-horizontal">
+<template name="biologForm">
+  
+<form id="biologForm" role="form" class="form-horizontal">
   
   <div class="form-group">
     <label for="hs" class="col-md-2 control-label">HS#</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="hs" size="5" maxlength="100">
+      <input type="text" class="form-control" id="hs" size="5" maxlength="100" disabled="{{this.disableHS}}">
     </div>
     <label for="subjectCode" class="col-md-2 control-label">Subject Code</label>
     <div class="col-md-2">
@@ -71,10 +69,10 @@
   
   <div class="form-group">
     <div class="col-md-1 col-md-offset-1">
-      <button id="addBiologButton" type="submit" class="btn btn-success">Add</button>
+      <button id="biologButton" type="submit" class="btn btn-success">Save</button>
     </div>
   </div>
 </form>
-
-
+  
+  
 </template>

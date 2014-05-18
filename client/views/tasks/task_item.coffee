@@ -21,6 +21,6 @@ Template.taskItem.events
     task = Tasks.findOne { term: term }
     if task? 
       Meteor.call 'archiveTask', task, (error, id) ->
-        if (error) then throwError error.reason
+        if (error) then notifyError error.reason
 
 
