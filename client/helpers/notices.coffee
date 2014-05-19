@@ -7,6 +7,4 @@ notice = (message, type) -> Notices.insert { message: message, type: type, seen:
 @notifyWarning = (message) -> notice message, 'warning'
 @notifyError   = (message) -> notice message, 'danger'
 
-@clearNotices = -> 
-  console.log 'clear notices'
-  Notices.remove {seen: true}
+@clearNotices = -> Notices.remove {seen: true}

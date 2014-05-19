@@ -2,79 +2,79 @@
 
 {{> biologsBar}}
 
-<form id="addBiologForm" role="form" class="form-horizontal">
+<form id="editBiologForm" role="form" class="form-horizontal">
   
   <div class="form-group">
     <label for="hs" class="col-md-2 control-label">HS#</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="hs" size="5" maxlength="100">
+      <input type="text" class="form-control" id="hs" size="5" maxlength="100" value="{{_id}}" disabled>
     </div>
     <label for="subjectCode" class="col-md-2 control-label">Subject Code</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="subjectCode" size="10" maxlength="100">
+      <input type="text" class="form-control" id="subjectCode" size="10" maxlength="100" value="{{subjectCode}}" data-original="{{subjectCode}}">
     </div>
   </div>
   
   <div class="form-group">
     <label for="dna" class="col-md-2 control-label">DNA#</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="dna" size="10" maxlength="100">
+      <input type="text" class="form-control" id="dna" size="10" maxlength="100" value="{{dna}}" data-original="{{dna}}">
     </div>
     <label for="studyCode" class="col-md-2 control-label">Study Code</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="studyCode" size="10" maxlength="100">
+      <input type="text" class="form-control" id="studyCode" name="studyCode" size="10" maxlength="100" value="{{studyCode}}" data-original="{{studyCode}}">
     </div>
   </div>
 
   <div class="form-group">
     <label for="tissue" class="col-md-2 control-label">Tissue</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="tissue" size="10" maxlength="100">
+      <input type="text" class="form-control" id="tissue" size="10" maxlength="100" value="{{tissue.value}}" data-original="{{tissue.value}}">
     </div>
     <label for="tissueBanking" class="col-md-2 control-label">Tissue Banking</label>
     <div class="col-md-2">
-      <input type="checkbox" class="" id="tissueBanking">
+      <input type="checkbox" id="tissueBanking" name="tissueBanking" checked="{{tissue.banking}}" data-original="{{tissue.banking}}">
     </div>
   </div>
   
   <div class="form-group">
     <label for="collectedDate" class="col-md-2 control-label">Collected</label>
     <div class="col-md-3">
-      <input type="date" class="form-control" id="collectedDate">
+      <input type="date" class="form-control" id="collectedDate" value="{{collected.date}}" data-original="{{collected.date}}">
     </div>
     <label for="receivedDate" class="col-md-1 control-label">Received</label>
     <div class="col-md-3">
-      <input type="date" class="form-control" id="receivedDate">
+      <input type="date" class="form-control" id="receivedDate" value="{{received.date}}" data-original="{{received.date}}">
     </div>
   </div>
   
   <div class="form-group">
     <label for="storageLocation" class="col-md-2 control-label">Stored</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="storageLocation" size="10" maxlength="100">
+      <input type="text" class="form-control" id="storageLocation" size="10" maxlength="100" value="{{storage.location}}" data-original="{{storage.location}}">
     </div>
   </div>
 
   <div class="form-group">
     <label for="collaborator" class="col-md-2 control-label">Collaborator</label>
     <div class="col-md-2">
-      <input type="text" class="form-control" id="collaborator" size="10" maxlength="200">
+      <input type="text" class="form-control" id="collaborator" size="10" maxlength="200" value="{{collaborator.name}}" data-original="{{collaborator.name}}">
     </div>
   </div>
   
   <div class="form-group">
     <label for="comments" class="col-md-2 control-label">Comments</label>
     <div class="col-md-5">
-      <input type="text" class="form-control" id="comments" size="10" maxlength="1000">
+      <input type="text" class="form-control" id="comments" size="10" maxlength="1000" value="{{comments}}" data-original="{{comments}}">
     </div>
   </div>
   
   <div class="form-group">
     <div class="col-md-1 col-md-offset-1">
-      <button id="addBiologButton" type="submit" class="btn btn-success">Add</button>
+      <button id="editBiologButton" type="submit" class="btn btn-success">Save</button>
     </div>
   </div>
 </form>
-
+  
 
 </template>

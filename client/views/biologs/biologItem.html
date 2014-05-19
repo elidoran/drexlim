@@ -7,11 +7,11 @@
   <td>{{studyCode}}</td>
   <td>{{tissue.value}}</td>
   <td>{{#if tissue.banking}}<span class="text-success">Yes</span>{{else}}<span class="text-danger">No</span>{{/if}}</td>
-  <td>{{collectedDate}}</td>
-  <td>{{receivedDate}}</td>
+  <td>{{formatDate collected.date 'MM/DD/YYYY'}}</td>
+  <td>{{formatDate received.date 'MM/DD/YYYY'}}</td>
   <td>{{collaborator.name}}</td>
-  <td>{{loggedBy.name}}</td>
-  <td>{{storageLocation}}</td>
+  <td>{{logged.byName}}</td>
+  <td>{{storage.location}}</td>
   <td>{{comments}}</td>
 </tr>
 
