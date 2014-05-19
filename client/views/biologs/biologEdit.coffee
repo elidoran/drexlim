@@ -1,6 +1,5 @@
 Template.biologEdit.events
-  'click #editBiologButton': (e, t) -> editBiolog e, t
-  'submit #editBiologForm' : (e, t) -> editBiolog e, t
+  'click #editBiologButton, submit #editBiologForm': (e, t) -> editBiolog e, t
 
 biologEditableFieldNames = [
     'dna', 'subjectCode', 'studyCode', 'tissue', 'tissueBanking',

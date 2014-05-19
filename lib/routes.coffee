@@ -1,28 +1,70 @@
 
+requireLogin = (pause) ->
+  unless Meteor.user()
+    if Meteor.loggingIn()
+      this.render this.loadingTemplate
+    else
+      #this.render 'accessDenied'
+      # store where they are so we can return after login?
+      #Router.go 'entry'
+      this.redirect 'entry'
+    #pause()
+
+BiologListController = RouteController.extend({
+  
+  template: 'biologList'
+  
+  increment: 1
+  
+  limit: -> 
+    if this.params?.limit?
+      parseInt(this.params.limit) 
+    else 
+      this.increment
+  
+  findOptions: -> 
+    # can i use Session here??
+    sortOption = (Session.get 'sortBiologList') ? ([[ 'logged.date', 'asc']])
+    { limit: this.limit(), sort: sortOption }
+  
+  waitOn: -> 
+    options = this.findOptions()
+    Meteor.subscribe 'biologs' , options.limit, options.sort
+    
+  biologs: -> Biologs.find {}, this.findOptions() 
+
+  data: -> 
+    data =
+      biologs: this.biologs()
+    
+    limit = this.limit()
+    
+    # because we are telling the server to limit what we have to 'limit', we
+    # can't know if there are *more* available. So, we always act like there is
+    # more available if they gave us the limit we asked for
+    if data.biologs.count() is limit
+      data.nextPath = this.route.path { limit: limit + this.increment }
+      
+    return data
+})
+
+Router.onBeforeAction requireLogin, { except: [ 'entry' ] }
+Router.onBeforeAction -> clearNotices()
+Router.onBeforeAction 'loading', {  }
+
 Router.configure
   layoutTemplate: 'layout'
   loadingTemplate: 'loading'
   #notFoundTemplate: 'notFound'
   
-  waitOn: () ->
+  waitOn: ->
     [
     ]
 
-Router.map () ->
-
-  this.route 'biologs',
-    path: '/'
-    waitOn: -> Meteor.subscribe 'biologs'
-    onRun:  -> 
-      if Meteor.isClient
-        Session.set 'biologsListNavClass', 'active'
-        Session.set 'biologsSortNavClass', 'show'
-    onStop: -> 
-      if Meteor.isClient
-        Session.set 'biologsListNavClass', ''
-        Session.set 'biologsSortNavClass', 'disabled'
+Router.map ->
 
   this.route 'biologAdd',
+    disableProgress: true
     onRun:  ->
       if Meteor.isClient then Session.set 'biologsAddNavClass', 'active'
     onStop: ->
@@ -30,7 +72,7 @@ Router.map () ->
   
   this.route 'biologEdit',
     path: '/biologEdit/:_id' 
-    waitOn: -> Meteor.subscribe 'biologs', this.params._id
+    waitOn: -> Meteor.subscribe 'singleBiolog', this.params._id
     data: -> Biologs.findOne this.params._id
     onRun:  -> 
       if Meteor.isClient
@@ -43,7 +85,7 @@ Router.map () ->
     
   this.route 'biologView',
     path: '/biologView/:_id' 
-    waitOn: -> Meteor.subscribe 'biologs', this.params._id
+    waitOn: -> Meteor.subscribe 'singleBiolog', this.params._id
     data: -> Biologs.findOne this.params._id
     onRun:  -> 
       if Meteor.isClient
@@ -59,18 +101,15 @@ Router.map () ->
       if Meteor.isClient
         Session.set 'entryMode', 'login'
 
-requireLogin = (pause) ->
-  unless Meteor.user()
-    if Meteor.loggingIn()
-      this.render this.loadingTemplate
-    else
-      #this.render 'accessDenied'
-      # store where they are so we can return after login?
-      #Router.go 'entry'
-      this.redirect 'entry'
-    #pause()
-
-Router.onBeforeAction requireLogin, { except: [ 'entry' ] }
-Router.onBeforeAction -> clearNotices()
-Router.onBeforeAction 'loading', {  }
-
+  # listed last because it basically matches everything
+  this.route 'biologList',
+    path: '/:limit?'
+    controller: BiologListController
+    onRun:  ->
+      if Meteor.isClient
+        Session.set 'biologsListNavClass', 'active'
+        Session.set 'biologsSortNavClass', 'show'
+    onStop: -> 
+      if Meteor.isClient
+        Session.set 'biologsListNavClass', ''
+        Session.set 'biologsSortNavClass', 'disabled'

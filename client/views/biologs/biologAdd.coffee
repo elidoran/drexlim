@@ -1,8 +1,7 @@
 
 Template.biologAdd.events
-  'click #addBiologButton': (event, template) -> addBiolog event, template
-  'submit #addBiologForm': (event, template) -> addBiolog event, template
-  
+  'click #addBiologButton, submit #addBiologForm': (e, t) -> addBiolog e, t
+
 addBiolog = (event, template) ->
   
   # prevent form submission #1

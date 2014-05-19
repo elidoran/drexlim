@@ -9,9 +9,10 @@
   <td>{{#if tissue.banking}}<span class="text-success">Yes</span>{{else}}<span class="text-danger">No</span>{{/if}}</td>
   <td>{{formatDate collected.date 'MM/DD/YYYY'}}</td>
   <td>{{formatDate received.date 'MM/DD/YYYY'}}</td>
+  <td>{{storage.location}}</td>
   <td>{{collaborator.name}}</td>
   <td>{{logged.byName}}</td>
-  <td>{{storage.location}}</td>
+  <td>{{formatDate logged.date 'MM/DD/YYYY'}}</td>
   <td>{{comments}}</td>
 </tr>
 

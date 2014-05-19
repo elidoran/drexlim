@@ -3,6 +3,7 @@
     "iron-router": {},
     "spin": {},
     "bootstrap-3": {},
-    "moment": {}
+    "moment": {},
+    "iron-router-progress": {}
   }
 }
