@@ -1,1 +1,1 @@
-ROOT_URL=http://nexus.elidoran.com:3000 mrt --settings settings.json
+ROOT_URL=http://nexus.elidoran.com:3000 meteor --settings settings.json
