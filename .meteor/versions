@@ -46,7 +46,6 @@ mobile-status-bar@1.0.2
 momentjs:moment@2.9.0
 mongo@1.0.11
 mrt:bootstrap-3@0.3.8
-mrt:moment@2.8.1
 multiply:iron-router-progress@1.0.1
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
@@ -64,7 +63,6 @@ sha@1.0.2
 spacebars@1.0.5
 spacebars-compiler@1.0.4
 srp@1.0.2
-standard-app-packages@1.0.4
 stylus@1.0.6
 templating@1.0.11
 tracker@1.0.5

@@ -3,7 +3,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-standard-app-packages
 coffeescript
 accounts-ui
 accounts-password
@@ -12,7 +11,7 @@ jquery
 sacha:spin
 iron:router
 mrt:bootstrap-3
-mrt:moment
 multiply:iron-router-progress
 twbs:bootstrap
 momentjs:moment
+meteor-platform
