@@ -10,7 +10,6 @@ stylus
 jquery
 sacha:spin
 iron:router
-mrt:bootstrap-3
 multiply:iron-router-progress
 twbs:bootstrap
 momentjs:moment
