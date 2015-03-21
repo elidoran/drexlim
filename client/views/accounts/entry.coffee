@@ -84,7 +84,7 @@ loginUser = (info) ->
         notifyError 'Login failed'
       else
         # The user has been logged in.
-        Router.go 'biologs'
+        Router.go 'biologList'
        return false;
 
 createUser = (info) ->
@@ -98,7 +98,7 @@ createUser = (info) ->
     else
       # Success. Account has been created and the user
       # has logged in successfully.
-      Router.go 'biologs'
+      Router.go 'biologList'
 
 trimInput = (val) ->
   if val? then val.replace /^\s*|\s*$/g, "" else val

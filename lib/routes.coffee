@@ -1,18 +1,18 @@
 
 requireLogin = () ->
-  unless Meteor.user()
+  if Meteor.user()
+      this.next()
+  else
     if Meteor.loggingIn()
       this.render this.loadingTemplate
     else
-      #this.render 'accessDenied'
       # store where they are so we can return after login?
-      #Router.go 'entry'
       this.redirect 'entry'
-    #this.next() #???
 
 BiologListController = RouteController.extend({
 
   template: 'biologList'
+  layoutTemplate: 'dataLayout'
 
   increment: 1
 
@@ -52,8 +52,6 @@ Router.onBeforeAction requireLogin, { except: [ 'entry' ] }
 Router.onBeforeAction ->
   clearNotices()
   this.next()
-#automatically does loading when there is a waitOn
-#Router.onBeforeAction 'loading', {  }
 
 Router.configure
   layoutTemplate: 'layout'
