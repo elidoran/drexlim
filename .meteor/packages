@@ -15,3 +15,4 @@ twbs:bootstrap
 momentjs:moment
 meteor-platform
 email
+zimme:iron-router-active
