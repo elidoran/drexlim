@@ -1,5 +1,6 @@
+console.log 'require login file'
 
-requireLogin = () ->
+RouteActions.before.requireLogin = ->
   if Meteor.user()
       this.next()
   else
@@ -7,4 +8,4 @@ requireLogin = () ->
       this.render this.loadingTemplate
     else
       # store where they are so we can return after login?
-      this.redirect 'entry'
+      this.redirect '/entry'
