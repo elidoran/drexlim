@@ -1,4 +1,3 @@
-console.log '2 controller routing file'
 
 @Controllers = {}
 

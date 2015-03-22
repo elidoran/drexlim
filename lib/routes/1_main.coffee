@@ -1,4 +1,3 @@
-console.log '1 main routes file'
 
 Router.configure
   layoutTemplate: 'layout'

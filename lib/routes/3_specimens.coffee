@@ -1,4 +1,3 @@
-console.log '3 specimens routes file'
 
 ###
 # module to help define context routes like this

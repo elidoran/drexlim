@@ -1,4 +1,3 @@
-console.log 'require login file'
 
 RouteActions.before.requireLogin = ->
   if Meteor.user()
