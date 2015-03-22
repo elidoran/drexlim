@@ -6,22 +6,22 @@
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
           <li class="text-primary">Specimens</li>
-          <li>
+          <li class="{{isActiveRoute regex='specimens\\.add'}}">
             {{#linkTo route='specimens.add'}}
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
             {{/linkTo}}
           </li>
-          <li class="active">
+          <li class="{{isActiveRoute regex='specimens\\.list'}}">
             {{#linkTo route='specimens.list'}}
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List <span class="sr-only">(current)</span>
             {{/linkTo}}
           </li>
-          <li>
+          <li class="{{isActiveRoute regex='specimens\\.recent'}}">
             {{#linkTo route='specimens.recent'}}
             <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
             {{/linkTo}}
           </li>
-          <li>
+          <li class="{{isActiveRoute regex='specimens\\.search'}}">
             {{#linkTo route='specimens.search'}}
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
             {{/linkTo}}
