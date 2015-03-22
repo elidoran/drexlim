@@ -13,3 +13,5 @@ Router.route '/entry',
 
 Router.onBeforeAction RouteActions.before.requireLogin,
   except: [ 'entry' ]
+
+Router.onBeforeAction RouteActions.before.clearNotices
