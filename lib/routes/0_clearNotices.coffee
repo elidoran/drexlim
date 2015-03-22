@@ -1,4 +1,4 @@
 
-RouteActions.before.clearNotices = ->
+Routing.before.clearNotices = ->
   clearNotices()
   this.next()

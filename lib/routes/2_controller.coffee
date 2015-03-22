@@ -1,6 +1,4 @@
 
-@Controllers = {}
-
 # Used when displaying a list of items
 # requires:
 #   1. subscriptionName - string - name to pass to Meteor.subscribe
@@ -9,7 +7,7 @@
 #   1. increment - number - amount displayed at first, amount added when clicked
 #   2. sessionSortKey - string - key used to store sort option in Session
 #   3. defaultSort - array of arrays of strings - sorting options
-Controllers.ListController = RouteController.extend
+Routing.controllers.ListController = RouteController.extend
 
   # list shows this many at first, and adds this many more each time
   # TODO: use separate values for initial limit and additional increment

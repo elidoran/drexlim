@@ -1,5 +1,5 @@
 
-RouteActions.before.requireLogin = ->
+Routing.before.requireLogin = ->
   if Meteor.user()
       this.next()
   else

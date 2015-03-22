@@ -10,7 +10,7 @@ Router.route '/entry',
     if Meteor.isClient
       Session.set 'entryMode', 'login'
 
-Router.onBeforeAction RouteActions.before.requireLogin,
+Router.onBeforeAction Routing.before.requireLogin,
   except: [ 'entry' ]
 
-Router.onBeforeAction RouteActions.before.clearNotices
+Router.onBeforeAction Routing.before.clearNotices
