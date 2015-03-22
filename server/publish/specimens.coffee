@@ -1,6 +1,6 @@
 
-#Meteor.publish 'singleSpecimen', (id) ->
-#  if id? then Biologs.find id
+Meteor.publish 'singleSpecimen', (id) ->
+  if id? then Specimens.find id
 
 Meteor.publish 'specimens', (limit, sort) ->
   # for now, just show for the user
