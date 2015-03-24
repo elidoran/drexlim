@@ -1,9 +1,11 @@
 
 Router.configure
   layoutTemplate: 'layout'
-
-Router.route '/', ->
-  this.redirect '/specimens'
+  #subscriptions: ->
+  #  return Meteor.subscribe 'actions'
+  onBeforeAction: () ->
+    console.log "route: #{Router.current().url}"
+    this.next()
 
 Router.route '/entry',
   onRun: ->

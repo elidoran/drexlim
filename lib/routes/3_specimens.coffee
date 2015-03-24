@@ -1,4 +1,4 @@
-
+console.log 'loading specimens routes'
 
 ###
 # module to help define context routes like this
@@ -12,45 +12,54 @@ context.route 'specimens', 'dataLayout', [
 recentDataRouteKey = 'recent.route.data'
 
 storeRecentRoute = ->
-  Session.set recentDataRouteKey, Router.current()?.url
+  recentUrl = Router.current()?.url
+  console.log "recent url = #{recentUrl}"
+  Session.set recentDataRouteKey, recentUrl
   this.next()
 
 beforeActions = [ Routing.before.requireLogin, storeRecentRoute ]
 
-Router.route '/specimens/add',
-  name: 'specimens.add'
-  template: 'specimens.add'
+SpecimensController = Iron.RouteController.extend
   layoutTemplate: 'dataLayout'
   onBeforeAction: beforeActions
 
-Router.route '/specimens/search',
-  name: 'specimens.search'
-  template: 'specimens.search'
-  layoutTemplate: 'dataLayout'
-  onBeforeAction: beforeActions
+Router.route '/specimenAdd',
+  controller: SpecimensController
 
-Router.route '/specimens/recent',
-  name: 'specimens.recent'
-  template: 'specimens.recent'
-  layoutTemplate: 'dataLayout'
-  onBeforeAction: beforeActions
+Router.route '/specimensSearch',
+  controller: SpecimensController
+
+Router.route '/specimensRecent',
+  controller: SpecimensController
+
+
+SingleSpecimenController = SpecimensController.extend
+  waitOn: -> Meteor.subscribe 'singleSpecimen', {_id: this.params.id}
+  data:   -> Specimens.findOne this.params.id
+
+Router.route '/specimenView/:id',
+  name: 'specimenView'
+  controller: SingleSpecimenController
+
+Router.route '/specimenEdit/:id',
+  controller: SingleSpecimenController
 
 
 # use ListController for Specimens List
 SpecimensListController = Routing.controllers.ListController.extend
   subscriptionName: 'specimens'
-  collection: -> return Specimens
-  defaultSort: [[ 'logged.date', 'asc' ]]
+  collection: -> Specimens
+  defaultSort: [[ '_id', 'asc' ]]
 
 Router.route '/specimens/:limit?',
-  name: 'specimens.list'
-  template: 'specimens.list'
+  name: 'specimensList'
+  #template: 'specimens.list'
   layoutTemplate: 'dataLayout'
   onBeforeAction: beforeActions
   controller: SpecimensListController
 
 
-Router.route 'data',
+Router.route '/data',
   onBeforeAction: ->
     # get most recent data route user went to
     recentRoute = (Session.get recentDataRouteKey) ? '/specimens'
