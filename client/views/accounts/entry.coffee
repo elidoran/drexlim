@@ -84,8 +84,10 @@ loginUser = (info) ->
         notifyError 'Login failed'
       else
         # The user has been logged in.
-        Router.go '/'
-       return false;
+        loginFrom = (Session.get 'loginEntryFrom') ? '/'
+        console.log "after login returning to: #{loginFrom}"
+        Router.go loginFrom
+        return false;
 
 createUser = (info) ->
 

@@ -36,16 +36,17 @@ Routing.controllers.ListController = RouteController.extend
   collectionFind: -> this.collection().find {}, this.findOptions()
 
   data: ->
-    data = {}
-    collectionFind = this.collectionFind()
-    data[this.subscriptionName] = collectionFind
-
-    limit = this.limit()
-
-    # because we are telling the server to limit what we have to 'limit', we
-    # can't know if there are *more* available. So, we always act like there is
-    # more available if they gave us the limit we asked for
-    if collectionFind.count() is limit
-      data.nextPath = this.route.path { limit: limit + this.increment }
-
-    return data
+    if this.ready()
+      data = {}
+      collectionFind = this.collectionFind()
+      data[this.subscriptionName] = collectionFind
+  
+      limit = this.limit()
+  
+      # because we are telling the server to limit what we have to 'limit', we
+      # can't know if there are *more* available. So, we always act like there is
+      # more available if they gave us the limit we asked for
+      if collectionFind.count() is limit
+        data.nextPath = this.route.path { limit: limit + this.increment }
+  
+      return data

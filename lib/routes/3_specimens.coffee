@@ -1,27 +1,16 @@
-console.log 'loading specimens routes'
-
-###
-# module to help define context routes like this
-context.route 'specimens', 'dataLayout', [
-  'add',
-  'search',
-  'recent'
-]
-###
+#console.log 'loading specimens routes'
 
 recentDataRouteKey = 'recent.route.data'
-
 storeRecentRoute = ->
-  recentUrl = Router.current()?.url
-  console.log "recent url = #{recentUrl}"
-  Session.set recentDataRouteKey, recentUrl
+  if Meteor.isClient
+    recentUrl = this.url
+    console.log "recent url = #{recentUrl}"
+    Session.set recentDataRouteKey, recentUrl
   this.next()
-
-beforeActions = [ Routing.before.requireLogin, storeRecentRoute ]
 
 SpecimensController = Iron.RouteController.extend
   layoutTemplate: 'dataLayout'
-  onBeforeAction: beforeActions
+  onBeforeAction: storeRecentRoute
 
 Router.route '/specimenAdd',
   controller: SpecimensController
@@ -33,9 +22,16 @@ Router.route '/specimensRecent',
   controller: SpecimensController
 
 
-SingleSpecimenController = SpecimensController.extend
-  waitOn: -> Meteor.subscribe 'singleSpecimen', {_id: this.params.id}
-  data:   -> Specimens.findOne this.params.id
+SingleSpecimenController = Routing.controllers.SingleIdController.extend
+  subscriptionName: 'singleSpecimen'
+  collection: -> Specimens
+  layoutTemplate: 'dataLayout'
+  onBeforeAction: storeRecentRoute
+
+Router.route '/view/:id',
+  name: 'view'
+  template: 'specimenView'
+  controller: SingleSpecimenController
 
 Router.route '/specimenView/:id',
   name: 'specimenView'
@@ -53,15 +49,19 @@ SpecimensListController = Routing.controllers.ListController.extend
 
 Router.route '/specimens/:limit?',
   name: 'specimensList'
-  #template: 'specimens.list'
   layoutTemplate: 'dataLayout'
-  onBeforeAction: beforeActions
+  onBeforeAction: storeRecentRoute
   controller: SpecimensListController
 
 
 Router.route '/data',
-  onBeforeAction: ->
-    # get most recent data route user went to
-    recentRoute = (Session.get recentDataRouteKey) ? '/specimens'
-    # redirect user to that route
-    this.redirect recentRoute
+  name: 'data'
+  action: ->
+    if Meteor.isClient
+      # get most recent data route user went to
+      recentRoute = (Session.get recentDataRouteKey) ? '/specimens'
+      # redirect user to that route
+      this.redirect recentRoute
+    else
+      this.next()
+

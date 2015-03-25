@@ -1,6 +1,11 @@
-console.log 'loading catchall file'
+#console.log 'loading catchall file'
 
-Router.route '/', ->
-  console.log 'home route, redirecting ...'
-  #console.log "what is our route? #{Router.current().url}"
-  this.redirect '/specimens'
+Router.route '/',
+  name: 'root'
+  onBeforeAction: -> 
+    console.log 'roooooooot...'
+    this.next()
+  #action: ->
+  #  console.log "home route, #{this.url}, redirecting ..."
+  #  this.redirect '/specimens'
+
