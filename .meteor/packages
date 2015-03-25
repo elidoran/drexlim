@@ -9,10 +9,11 @@ accounts-password
 stylus
 jquery
 sacha:spin
-iron:router
-multiply:iron-router-progress
 twbs:bootstrap
 momentjs:moment
 meteor-platform
 email
-zimme:iron-router-active
+meteorhacks:flow-router
+meteorhacks:flow-layout
+meteorhacks:fast-render
+meteorhacks:subs-manager
