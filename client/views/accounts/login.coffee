@@ -19,16 +19,22 @@ Template.userlogin.events
       errors = true
 
     if not errors?
+
+      Notify.clear()
+
       Meteor.loginWithPassword email, password, (err) ->
         if err
-          # The user might not have been found, or their password
-          # could be incorrect. Inform the user that their
-          # login attempt has failed.
           console.log 'login failure: ', err
-          if err.reason is 'Incorrect password'
-            Notify.error "Woopsy. Bad password. Try again?"
+
+          if err?.reason is 'Incorrect password'
+            Notify.error 'Woopsy. Bad password. Try again?'
+
+          else if err?.reason is 'User not found'
+            Notify.error 'Who are you? I don\'t know that email'
+
           else
             Notify.error "Login failed: #{err.reason}"
+
         else
           # The user has been logged in.
           returnTo = (Session.get 'returnAfterLogin') ? '/'
