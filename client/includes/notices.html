@@ -1,6 +1,6 @@
 
 <template name="notices">
-  <div class="notices row-fluid">
+  <div class="notices">
     {{#each notices}}
       {{> notice}}
     {{/each}}
@@ -8,9 +8,8 @@
 </template>
 
 <template name="notice">
-  <div class="alert alert-{{type}} alert-dismissable">
+  <div class="alert alert-{{type}} alert-dismissable" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     {{message}}
   </div>
 </template>
-
