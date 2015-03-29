@@ -1,0 +1,50 @@
+<template name="data">
+
+<ul class="nav nav-sidebar">
+  <li class="text-primary context-menu-header">Specimens</li>
+  <li class="{{at 'Specimen' 'Add'}}">
+    <a href="/app/data/Specimen/Add">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+    </a>
+  </li>
+  <li class="{{at 'Specimen' 'List'}}">
+    <a href="/app/data/Specimen/List">
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List <span class="sr-only">(current)</span>
+  </a>
+  </li>
+  <li class="{{at 'Specimen' 'Recent'}}">
+    <a href="/app/data/Specimen/Recent">
+    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
+  </a>
+  </li>
+  <li class="{{at 'Specimen' 'Search'}}">
+    <a href="/app/data/Specimen/Search">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+  </a>
+  </li>
+</ul>
+<ul class="nav nav-sidebar">
+  <li class="text-primary context-menu-header">Storage Locations</li>
+  <li>
+    <a href="#" class='add-link'>
+    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+  </a>
+  </li>
+  <li>
+    <a href="#" class='add-link'>
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List <span class="sr-only">(current)</span>
+  </a>
+  </li>
+  <li>
+    <a href="#" class='add-link'>
+    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
+  </a>
+  </li>
+  <li>
+    <a href="#" class='add-link'>
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+    </a>
+  </li>
+</ul>
+
+</template>
