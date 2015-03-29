@@ -1,7 +1,7 @@
 # Local (client-only) collection
 @Notices = new Meteor.Collection(null)
 
-notice = (message, type) ->
+addNotice = (message, type) ->
   Notices.insert
     message: message
     type: type
@@ -9,10 +9,10 @@ notice = (message, type) ->
     createdAt: new Date().getTime()
 
 @Notify =
-  info:    (message) -> notice message, 'info'
-  success: (message) -> notice message, 'success'
-  warning: (message) -> notice message, 'warning'
-  error:   (message) -> notice message, 'danger'
+  info:    (message) -> addNotice message, 'info'
+  success: (message) -> addNotice message, 'success'
+  warning: (message) -> addNotice message, 'warning'
+  error:   (message) -> addNotice message, 'danger'
   clear:   -> Notices.remove {seen: true}
 
 Template.notices.helpers
@@ -24,5 +24,6 @@ Template.notice.onRendered ->
     Notices.update notice._id, { $set: {seen: true} }
 
 Template.notice.events
+
   'click .alert': (event, template) ->
     Notices.remove template.data._id
