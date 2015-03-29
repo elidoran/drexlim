@@ -1,106 +1,23 @@
 
-Template.entry.helpers
-  entryMode:    -> Session.get 'entryMode' ? 'login'
-  loginClass:   -> if Session.equals 'entryMode', 'login'  then 'active' else ''
-  createClass:  -> if Session.equals 'entryMode', 'create' then 'active' else ''
-  forgotClass:  -> if Session.equals 'entryMode', 'forgot' then 'active' else ''
-  createActive: -> Session.equals 'entryMode', 'create'
-  loginOrCreateActive: ->
-    (Session.equals 'entryMode', 'login') or (Session.equals 'entryMode', 'create')
+Tracker.autorun ->
+  if not Meteor.userId()? # no longer logged in, send to login
+    path = FlowRouter.current().path
+    Session.set 'returnAfterLogin', path
+    FlowRouter.go '/app/entry/user/login'
 
-  entryButtonText: ->
-    switch Session.get 'entryMode'
-      when 'login' then 'Login'
-      when 'create' then 'Add Account'
-      when 'forgot' then 'Send Reset Email'
-      else 'login'
+# # #
+# Help with password reset sending user to a new route so they aren't stuck on the login
+# # #
 
-Template.entry.events
+# key we're using in the Session to mark a login is happening from a password reset
+resettingKey = 'Resetting Password Now'
 
-  # shouldn't need the click event, the submit event should do both
-  #'click #entryButton': (e, t) -> enter e, t
-  'submit #entryForm' : (e, t) -> enter e, t
-  'click #entryLogin' : (e, t) -> Session.set 'entryMode', 'login'
-  'click #entryCreate': (e, t) -> Session.set 'entryMode', 'create'
-  'click #entryForgot': (e, t) -> Session.set 'entryMode', 'forgot'
+# when this template is rendered, it means they just reset their password
+Template._justResetPasswordDialog.onRendered ->
+  Session.set resettingKey, true
 
-enter = (e, t) ->
-
-  e.preventDefault()
-
-  # we always need the email, so, get it and check it
-  entryInfo =
-    email: trimInput t.find('#email').value
-
-  unless entryInfo?.email?.length > 0
-    notifyError 'You must specify an email.'
-
-  # get the entry mode
-  entryMode = Session.get 'entryMode'
-
-  # if it's *not* 'forgot password' mode, then we need more
-  if entryMode isnt 'forgot'
-
-    # get the password
-    entryInfo.password = t.find('#password').value
-
-    unless entryInfo?.password?.length >= 8
-      notifyError 'You must specify a password. It must be at least 8 characters long.'
-
-    # if it's *not* 'login' then it must be create, and we need more info
-    if entryMode isnt 'login'
-
-      # get the name
-      entryInfo.profile =
-        name: trimInput t.find('#name').value
-
-      unless entryInfo?.profile?.name?.length > 0
-        notifyError 'You must specify a Name.'
-
-      # we have everything we need to create the new user
-      createUser entryInfo
-
-    else # it is 'login' mode
-      loginUser entryInfo
-
-  else # it is 'forgot' mode, so, send reset email
-    Accounts.forgotPassword entryInfo, (err) ->
-      if err then notifyError err
-      else notifyError 'Reset email sent'
-
-  # don't let it send the form
-  return false
-
-loginUser = (info) ->
-
-    Meteor.loginWithPassword info.email, info.password, (err) ->
-      if err
-        # The user might not have been found, or their password
-        # could be incorrect. Inform the user that their
-        # login attempt has failed.
-        console.log 'login failed...'
-        console.log "err = #{err}"
-        console.log "err = #{_.pairs err}"
-        notifyError 'Login failed'
-      else
-        # The user has been logged in.
-        loginFrom = (Session.get 'loginEntryFrom') ? '/'
-        console.log "after login returning to: #{loginFrom}"
-        Router.go loginFrom
-        return false;
-
-createUser = (info) ->
-
-  Accounts.createUser info, (err) ->
-    if err
-      # Inform the user that account creation failed
-      console.log 'creation failed'
-      console.log "err = #{err}"
-      console.log "err = #{_.pairs err}"
-    else
-      # Success. Account has been created and the user
-      # has logged in successfully.
-      Router.go '/'
-
-trimInput = (val) ->
-  if val? then val.replace /^\s*|\s*$/g, "" else val
+# when a login occurs after the above template was rendered then send them to '/'
+Accounts.onLogin ->
+  if Session.equals resettingKey, true
+    Session.set resettingKey, undefined
+    FlowRouter.go '/'
