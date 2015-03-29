@@ -1,5 +1,5 @@
 
-Template.specimenAdd.events
+Template.SpecimenAdd.events
 
   'submit #AddSpecimenForm': (event, template) ->
     event.preventDefault()
@@ -9,4 +9,7 @@ Template.specimenAdd.events
     Specimens.insert {_id: id}, (error, id) ->
       if error? then notifyError error.reason
       else
-        Router.go 'specimenView', {id: id}
+        #FlowRouter.go '/app/data/Specimen/View/:id', {id: id}
+        FlowRouter.setParams
+          how: 'View'
+          id: id
