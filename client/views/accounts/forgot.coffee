@@ -1,0 +1,18 @@
+
+Template.userforgot.events
+
+  'submit #forgotForm': (event, template) ->
+
+    event.preventDefault()
+
+    info =
+      email: Util.trim template.find('#email').value
+    unless info?.email?.length > 0
+      Notify.error 'You must specify an email'
+    else
+      Accounts.forgotPassword info, (err) ->
+        if err
+          console.log 'error in forgot password: ', err
+          Notify.error 'Failed to send forgot password...'
+        else
+          Notify.success 'Reset email sent'
