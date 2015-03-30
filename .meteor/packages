@@ -16,6 +16,6 @@ email
 meteorhacks:flow-layout
 meteorhacks:fast-render
 meteorhacks:subs-manager
-meteorhacks:flow-router
 fortawesome:fontawesome
 aslagle:reactive-table
+meteorhacks:flow-router
