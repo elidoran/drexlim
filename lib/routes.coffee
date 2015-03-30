@@ -57,4 +57,4 @@ FlowRouter.route '/',
 # TODO: test this
 FlowRouter.notfound =
   middlewares: [requireLogin]
-  action: -> notifyError 'Unable to find that'
+  action: -> Notify.error 'Unable to find that'
