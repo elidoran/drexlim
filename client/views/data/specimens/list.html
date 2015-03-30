@@ -1,5 +1,9 @@
 <template name="SpecimenList">
 
-  <p>specimen list</p>
+  {{#if Template.subscriptionsReady}}
+    {{> reactiveTable settings=settings}}
+  {{else}}
+    {{> loading}}
+  {{/if}}
 
 </template>

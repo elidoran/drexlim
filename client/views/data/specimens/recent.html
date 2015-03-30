@@ -1,3 +1,9 @@
 <template name="SpecimenRecent">
-  recent specimens...
+
+  {{#if Template.subscriptionsReady}}
+    {{> reactiveTable settings=settings}}
+  {{else}}
+    {{> loading}}
+  {{/if}}
+
 </template>
