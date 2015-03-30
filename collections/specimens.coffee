@@ -4,7 +4,8 @@
 
 Specimens.allow
   insert: -> true
-  update: -> false
+  update: -> true
   remove: -> false
+
 
 #Meteor.methods
