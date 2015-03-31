@@ -1,0 +1,25 @@
+<template name="user">
+
+  <ul class="nav nav-sidebar">
+    <li class="text-primary context-menu-header">User</li>
+    <li class="{{at 'User' 'Profile'}}">
+      <a href="/app/user/User/Profile">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile
+        {{#if at 'User' 'Profile'}}<span class="sr-only">(current)</span>{{/if}}
+      </a>
+    </li>
+    <li class="{{at 'User' 'Settings'}}">
+      <a href="/app/user/User/Settings">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+      {{#if at 'User' 'Settings'}}<span class="sr-only">(current)</span>{{/if}}
+    </a>
+    </li>
+    <!--
+      3. Tasks? - tasks they have to do, their status, who did what...
+      4. Notifications? - system lets a user know when something interesting happened
+      5. Messages?  - send each other messages
+    -->
+  </ul>
+
+
+</template>
