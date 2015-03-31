@@ -1,7 +1,11 @@
 <template name="SpecimenView">
 
 <div>
-  specimen: {{_id}}
+  {{#if Template.subscriptionsReady}}
+    specimen: {{specimen._id}}
+  {{else}}
+    Not loaded yet...
+  {{/if}}
 </div>
 
 </template>
