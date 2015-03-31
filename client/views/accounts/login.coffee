@@ -8,12 +8,15 @@ Template.userlogin.events
     email = Util.trim template.find('#email').value
 
     # TODO: verify valid email format
-    unless email?.length > 0
+    # TODO: use the semantics-ui Message to display errors that way...
+    unless Match.test email, Is.email#Is.nonEmptyString
       Notify.error 'You must specify an email'
       errors = true
 
     password = template.find('#password').value
 
+    # TODO:
+    #   list of requirements for password shown in UI with red->green as supplied
     unless password?.length >= 8
       Notify.error 'You must specify a password at least 8 characters long.'
       errors = true
@@ -27,7 +30,10 @@ Template.userlogin.events
           console.log 'login failure: ', err
 
           if err?.reason is 'Incorrect password'
-            Notify.error 'Woopsy. Bad password. Try again?'
+            # TODO:
+            #  reduce the tedium of 'wrong password' events
+            #  by randomly selecting messages for this.
+            Notify.error 'Oops. Bad password. Try again?'
 
           else if err?.reason is 'User not found'
             Notify.error 'Who are you? I don\'t know that email'
@@ -38,5 +44,6 @@ Template.userlogin.events
         else
           # The user has been logged in.
           returnTo = (Session.get 'returnAfterLogin') ? '/'
+          #returnTo = (FlowRouter.getQueryParam 'returnTo') ? '/'
           console.log "after login returning to: #{returnTo}"
           FlowRouter.go returnTo
