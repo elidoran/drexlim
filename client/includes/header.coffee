@@ -1,19 +1,20 @@
 
+defaultRecent =
+  data: '/app/data/Specimen/Recent'
+  people: '/app/people/Collaborator/Recent'
+
 Template.header.helpers
 
-  recentData: -> Session.get 'recent-data'
+  recent: (sidebar) ->
+    (Session.get "recent-#{sidebar}") ? defaultRecent[sidebar]
 
+  sidebar: (name) ->
+    if name is FlowRouter.getParam 'sidebar'
+      'active'
+      
   userDisplayName: -> Meteor.user().profile.name
 
 Template.header.events
-
-  'click #userProfileLink': (event, template) ->
-    event.preventDefault()
-    FlowRouter.go '/app/user/User/Profile'
-
-  'click #userSettingLink': (event, template) ->
-    event.preventDefault()
-    FlowRouter.go '/app/user/User/Setting'
 
   'click #userLogoutLink': (event, template) ->
     event.preventDefault()
