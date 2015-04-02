@@ -1,0 +1,60 @@
+<template name="people">
+
+<ul class="nav nav-sidebar">
+  <li class="text-primary context-menu-header">Collaborators</li>
+  <li class="{{at 'Collaborator' 'Add'}}">
+    <a href="/app/people/Collaborator/Add">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+      {{#if at 'Collaborator' 'Add'}}<span class="sr-only">(current)</span>{{/if}}
+    </a>
+  </li>
+  <li class="{{at 'Collaborator' 'List'}}">
+    <a href="/app/people/Collaborator/List">
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List
+    {{#if at 'Collaborator' 'List'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
+  </li>
+  <li class="{{at 'Collaborator' 'Recent'}}">
+    <a href="/app/people/Collaborator/Recent">
+    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
+    {{#if at 'Collaborator' 'Recent'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
+  </li>
+  <!--
+  <li class="{{at 'Collaborator' 'Search'}}">
+    <a href="/app/people/Collaborator/Search">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Advanced Search
+    {{#if at 'Collaborator' 'Search'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
+  </li>
+  -->
+</ul>
+<ul class="nav nav-sidebar">
+  <li class="text-primary context-menu-header">Members</li>
+  <li class="{{at 'Member' 'Add'}}">
+    <a href="/app/people/Member/Add">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+      {{#if at 'Specimen' 'Add'}}<span class="sr-only">(current)</span>{{/if}}
+    </a>
+  </li>
+  <li class="{{at 'Member' 'List'}}">
+    <a href="/app/people/Member/List">
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List
+    {{#if at 'Storage' 'List'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
+  </li>
+  <li class="{{at 'Member' 'Recent'}}">
+    <a href="/app/people/Member/Recent">
+    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
+    {{#if at 'Storage' 'Recent'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
+  </li>
+  <li class="{{at 'Member' 'Search'}}">
+    <a href="/app/people/Member/Search">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Advanced Search
+    {{#if at 'Storage' 'Search'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
+  </li>
+</ul>
+
+</template>
