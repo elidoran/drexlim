@@ -8,7 +8,6 @@ accounts-password
 stylus
 jquery
 sacha:spin
-twbs:bootstrap
 momentjs:moment
 meteor-platform
 email
@@ -18,4 +17,5 @@ meteorhacks:subs-manager
 fortawesome:fontawesome
 aslagle:reactive-table
 meteorhacks:flow-router
-semantic:ui-css
+less
+nemo64:bootstrap
