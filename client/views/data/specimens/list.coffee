@@ -27,4 +27,7 @@ Template.SpecimenList.events
   'click .reactive-table tr': (event) ->
     event.preventDefault()
     specimen = this
-    FlowRouter.go "/app/data/Specimen/View/#{specimen._id}"
+    #FlowRouter.go "/app/data/Specimen/View/#{specimen._id}"
+    FlowRouter.setParams
+      item: 'View'
+      id: specimen._id
