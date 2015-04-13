@@ -53,7 +53,7 @@
 
 @brand-primary:         @drexel-primary-blue;
 @brand-secondary:       @drexel-primary-yellow; // I added brand-secondary...
-@brand-success:         @drexel-accent-green;
+@brand-success:         @drexel-accent-green; // drexel's accent green is terrible for `success`. default: #3C763D;
 @brand-info:            @drexel-accent-blue;
 @brand-warning:         @drexel-accent-orange;
 @brand-danger:          @drexel-accent-red;
@@ -190,8 +190,8 @@
 @btn-primary-bg:                 @drexel-primary-yellow;
 @btn-primary-border:             darken(@btn-primary-bg, 5%);
 
-@btn-success-color:              @drexel-accent-green-dark;//#fff;
-@btn-success-bg:                 @drexel-accent-green;//@brand-success;
+@btn-success-color:              #fff;//@drexel-accent-green-dark;//#fff;
+@btn-success-bg:                 @drexel-accent-green-dark;//@brand-success;
 @btn-success-border:             darken(@btn-success-bg, 5%);
 
 @btn-info-color:                 @drexel-accent-blue-dark;//#fff;
@@ -278,7 +278,7 @@
 //** Hover color for dropdown links.
 @dropdown-link-hover-color:      @drexel-primary-yellow;//darken(@gray-dark, 5%);
 //** Hover background for dropdown links.
-@dropdown-link-hover-bg:         lighten(@drexel-primary-blue, 5%);//#f5f5f5;
+@dropdown-link-hover-bg:         @drexel-primary-blue;//#f5f5f5;
 
 //** Active dropdown menu item text color.
 @dropdown-link-active-color:     @drexel-primary-yellow;//@component-active-color;
@@ -529,8 +529,8 @@
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-@state-success-text:             #949300;//#3c763d;
-@state-success-bg:               #B7BF10;//#dff0d8;
+@state-success-text:             #3c763d;
+@state-success-bg:               #dff0d8;
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
 @state-info-text:                #006298;//#31708f;
@@ -541,8 +541,8 @@
 @state-warning-bg:               #FF8F1C;//#fcf8e3;
 @state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
 
-@state-danger-text:              #971B2F;//#a94442;
-@state-danger-bg:                #D14124;//#f2dede;
+@state-danger-text:              #FFF;//@drexel-accent-red-dark;//#a94442;
+@state-danger-bg:                @drexel-accent-red;//#f2dede;
 @state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
 
 
