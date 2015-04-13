@@ -13,6 +13,9 @@ Template.userforgot.events
       Accounts.forgotPassword info, (err) ->
         if err
           console.log 'error in forgot password: ', err
-          Notify.error 'Failed to send forgot password...'
+          if err.reason is 'User not found'
+            Notify.error 'Unknown email'
+          else
+            Notify.error 'Failed to send forgot password...'
         else
           Notify.success 'Reset email sent'
