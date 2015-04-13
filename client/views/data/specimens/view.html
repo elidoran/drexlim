@@ -3,8 +3,47 @@
 <div>
   {{#if Template.subscriptionsReady}}
     specimen: {{specimen._id}}
+
+    <div role="tabpanel">
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#base" aria-controls="base" role="tab" data-toggle="tab">Base</a></li>
+        <li role="presentation"><a href="#cs" aria-controls="cs" role="tab" data-toggle="tab">Clinical</a></li>
+        <li role="presentation"><a href="#bs" aria-controls="bs" role="tab" data-toggle="tab">Bacterial Stock</a></li>
+        <li role="presentation"><a href="#dna" aria-controls="dna" role="tab" data-toggle="tab">Bacteria/DNA</a></li>
+        <li role="presentation"><a href="#gc" aria-controls="gc" role="tab" data-toggle="tab">General Construct</a></li>
+        <li role="presentation"><a href="#lib" aria-controls="lib" role="tab" data-toggle="tab">Libraries</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="base">
+          base
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="cs">
+          clinical
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="bs">
+          bacterial stock
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="dna">
+          dna
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="gc">
+          gc
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="lib">
+          lib
+        </div>
+      </div>
+
+    </div>
   {{else}}
-    Not loaded yet...
+    Loading...
   {{/if}}
 </div>
 

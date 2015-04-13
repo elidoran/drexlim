@@ -365,7 +365,7 @@
 40361,,,,BBOA,"Meniscus ""C""",BBOA30,Primary Knee,Right,Osteoarthritis,Antonia Chen,,,,,11/12/2014,11/13/2014,,,"Bacterial Basis of Osteoarthritis, Antonia Chen, Jay Parvizi",Carol Hope,"5th floor freezer room, flat -80",,,,,Transported to freezer by Eric
 40362,,,,BBOA,"Synovial Fluid ""A""",BBOA30,Primary Knee,Right,Osteoarthritis,Antonia Chen,,,,,11/12/2014,11/13/2014,,,"Bacterial Basis of Osteoarthritis, Antonia Chen, Jay Parvizi",Carol Hope,5418,,,,,Transported to freezer by Eric
 40363,,,,BBOA,"Biopsies, Meniscus ""B""",BBOA30,Primary Knee,Right,Osteoarthritis,Antonia Chen,,,,,11/12/2014,11/13/2014,,,"Bacterial Basis of Osteoarthritis, Antonia Chen, Jay Parvizi",Carol Hope,5418,,,,,Transported to freezer by Eric
-+-,5008,2066,1001,,H. influenzae AM001,,R2866,,WT from Arnold Smith (AS) Collection ,,,,,,6/4/2014,,,,,Carol Hope,"Arnie Smith Freezer, Room 5404",,,,,"Lab Notebook page A11, created by Anthony May, qty=3"
+40364,5008,2066,1001,,H. influenzae AM001,,R2866,,WT from Arnold Smith (AS) Collection ,,,,,,6/4/2014,,,,,Carol Hope,"Arnie Smith Freezer, Room 5404",,,,,"Lab Notebook page A11, created by Anthony May, qty=3"
 40365,5009,2067,1002,,H. influenzae AM003,,R3420,,R2866 Mutant; ∆hp2::Rsm from AS Collection,,,,,,6/4/2014,,,,,Carol Hope,"Arnie Smith Freezer, Room 5404",,,,,"Lab Notebook page A11, created by Anthony May, qty=3"
 40366,5010,2068,1003,,H. influenzae AM004,,R3422 ,,"R2866 Mutant; ∆hp2::Cm from AS Collection (2 Sets, 3 Per Set)",,,,,,Set 1:6/4/2014 ; Set 2: 9/24/2014,,,,,Carol Hope,"Arnie Smith Freezer, Room 5404",,,,,"Lab Notebook page A11;B7, created by Anthony May, qty=6"
 40367,5011,2069,1004,,H. influenzae AM005,,R3435,,R2866 Mutant;  ∆hp2dam::Rsm from AS Collection,,,,,,9/24/2014,,,,,Carol Hope,"Arnie Smith Freezer, Room 5404",,,,,"Lab Notebook page B7, created by Anthony May, qty=3"
@@ -1042,3 +1042,4 @@
 41038,,,,MAPP,urine,URI0023687,,,,,,,,,,2/3/2015,,,Curtis Nickel,Carol Hope,"5th floor freezer room, flat -80",,,,,
 41039,,,,MAPP,urine,URI0023731,,,,,,,,,,2/3/2015,,,Curtis Nickel,Carol Hope,"5th floor freezer room, flat -80",,,,,
 41040,,,,MAPP,urine,URI0030964,,,,,,,,,,2/3/2015,,,Curtis Nickel,Carol Hope,"5th floor freezer room, flat -80",,,,,
+39999,Bnum,bs#,gc#,study,the tissue value,subject code,procedure,location,indication,surgeon,,,01/01/1901,sex,02/02/1902,03/03/1903,banking,the species,The Collaborator,Eli Doran,stored nowhere,shelf,rack,box,cell,Transported somewhere by Eli
