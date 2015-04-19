@@ -1,0 +1,21 @@
+<template name="textfield">
+
+  <div class="{{groupClass options.groupClass}}">
+    {{#if label}}
+      <div class="{{labelClass options.labelClass}}">
+        <label for="{{name}}">{{label}}</label>
+      </div>
+    {{/if}}
+
+    <div class="{{fieldClass options.fieldClass}}">
+      <input type="text" class="TF {{inputClass options.inputClass}}"
+        id="{{name}}" name="{{name}}"
+        value="{{valueFor ../object name}}"
+        placeholder="{{options.placeholder}}"
+        minlength="{{options.min}}"
+        maxlength="{{max options.max}}"
+        required="{{options.required}}">
+    </div>
+  </div>
+
+</template>

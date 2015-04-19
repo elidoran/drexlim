@@ -1,13 +1,5 @@
 <template name="SpecimenList">
 
-  {{#if Template.subscriptionsReady}}
-
-    {{> reactiveTableFilter id="specimenListFilter" label="Search" fields=filterFields }}
-
-    {{> reactiveTable settings=tableSettings}}
-
-  {{else}}
-    {{> loading}}
-  {{/if}}
+  {{> table id='specimenList' settings=tableSettings fields=filterFields}}
 
 </template>

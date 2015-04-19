@@ -1,37 +1,43 @@
 
 Template.SpecimenView.onCreated ->
-  console.log 'SpecimenView CREATED'
-  Session.set 'inView', true
   self = this
   this.autorun ->
     specimenId = FlowRouter.getParam 'id'
-    #specimenId = FlowRouter.current().params.id
-    console.log "SpecimenView Autorun specimenId=#{specimenId}"
     if specimenId?
-      console.log 'subscribing with ', specimenId
       self.specimenId = specimenId # store on template for helpers
-      #console.log 'inside autorun this=', this
-      #console.log 'inside autorun self=', self
       #SingleSubs.subscribe 'singleSpecimen', specimenId
       self.subscribe 'singleSpecimen', specimenId
 
-Template.SpecimenView.onRendered ->
-  console.log 'SpecimenView RENDERED : ', this.specimenId
-  #console.log 'this=', this
+#Template.SpecimenView.onRendered ->
 
 Template.SpecimenView.onDestroyed ->
-  console.log 'SpecimenView DESTROYED : ', this.specimenId
-  #console.log 'this=', this
-  #delete this.specimenId  # delete as part of 'cleanup' just to be certain
-  Session.set 'inView', false
+  delete this.specimenId  # delete as part of 'cleanup' just to be certain
 
 Template.SpecimenView.helpers
-
+  newDate: -> new Date()
   specimen: ->
     # properties set in the above callbacks are in the instance's *view* property
     specimenId = Template.instance()?.specimenId
-    console.log 'SpecimenView HELPER specimenId=', specimenId
     if specimenId?
-      Specimens.findOne specimenId
-    else
-      return {id:'no ID provided to find'}
+      specimen = Specimens.findOne _id:specimenId
+      if specimen?
+        if specimen?._id is specimenId
+          Meteor.call 'recentSpecimen', specimenId
+        return specimen
+
+  collection: -> Specimens
+  #specimenId: -> Template.instance()?.specimenId
+  baseFields: (specimen) ->
+    # how to access another helper from this helper? we want the specimen...
+
+    return {
+      collection: Specimens
+      id: Template.instance()?.specimenId
+      object: specimen
+      array: [
+        #TODO: assume 'text' if not specified?
+        #{name:'accession', type:'text', label: {text:'Accession'}}
+        {name:'dateCollected', type:'date', label:{text:'Collected'}}
+        #{name:'dateReceived', type:'date', label:{text:'Received'}}
+      ]
+    }

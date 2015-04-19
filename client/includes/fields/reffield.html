@@ -1,0 +1,28 @@
+<template name="reffield">
+
+<div class="{{groupClass options.groupClass}}">
+  {{#if label}}
+    <div class="{{labelClass options.labelClass}}">
+      <label for="{{name}}">{{label}}</label>
+    </div>
+  {{/if}}
+
+  <div class="{{fieldClass options.fieldClass}}">
+
+    <input type="text" class="RF typeahead {{inputClass options.inputClass}}"
+      id="{{id}}" name="{{name}}"
+      placeholder="{{placeholder}}"
+      autocomplete="off" spellcheck="off"
+      value="{{valueFor ../object name}}"
+      data-source="search{{ref}}">
+      <!--
+      data-template="reffielditem"
+      -->
+  </div>
+</div>
+
+</template>
+
+<template name="reffielditem">
+  <div>{{name}}</div>
+</template>

@@ -2,7 +2,7 @@
 
 <div>
   {{#if Template.subscriptionsReady}}
-    specimen: {{specimen._id}}
+    <h3>Specimen: {{specimen._id}}</h3>
 
     <div role="tabpanel">
 
@@ -15,32 +15,146 @@
         <li role="presentation"><a href="#lib" aria-controls="lib" role="tab" data-toggle="tab">Libraries</a></li>
       </ul>
 
+      <form class="form-horizontal">
+
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="base">
-          base
+          <!--
+            1. text
+            2. date
+            3. date
+            4. name with refId to another collection
+            5. name with refId to another collection
+            6. tags : special select
+            7. textarea
+          -->
+          {{#with collection=collection object=specimen}}
+            {{> textfield name='accession' label='Accession' }}
+            {{> datefield name='dateCollected' label='Collected' }}
+            {{> datefield name='dateReceived' label='Received' }}
+            {{> reffield id="collabName" name='collab.name' label='Collaborator' ref='Collaborators'
+              placeholder="Type Name"}}
+            {{> reffield id="loggedByName" name='loggedBy.name' label='Logged By' ref='Users'
+              placeholder="Type Name"}}
+            {{> reffield id="projectName" name='project.name' label='Project' ref='Projects'
+              placeholder="Type Name"}}
+          {{/with}}
+          <!--
+          {{specimen.accession}}<br/>
+          {{formatDate specimen.dateCollected}}<br/>
+          {{formatDate specimen.dateReceived}}<br/>
+          {{specimen.collab.name}}<br/>
+          {{specimen.loggedBy.name}}<br/>
+          {{specimen.project.name}}<br/>
+          -->
+          {{specimen.tags}}<br/><!-- special select as tagging-->
+          {{specimen.note}}<br/>
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="cs">
-          clinical
+          <!--
+          1. text, unchangeable? assignable? how will this one work?
+          2. text
+          3. text with refId to another collection
+          4. text
+          5. text
+          6. text
+          7. date
+          8. ~name with refId to another collection w/multi values
+          -->
+          {{#with collection=collection object=specimen}}
+            {{> textfield name='clinical.id' label='CS#' }}
+            {{> textfield name='clinical.tissue' label='Tissue' }}
+            {{> textfield name='clinical.subject' label='Subject' }}
+            {{> textfield name='clinical.indication' label='Indication' }}
+            {{> textfield name='clinical.surgeon' label='Surgeon' }}
+            {{> textfield name='clinical.place' label='Place' }}
+            {{> datefield name='clinical.dob' label='Date of Birth' }}
+          {{/with}}
+          <!--
+          {{specimen.clinical.id}}<br/>
+          {{specimen.clinical.tissue}}<br/>
+          {{specimen.clinical.subject}}<br/>
+          {{specimen.clinical.indication}}<br/>
+          {{specimen.clinical.surgeon}}<br/>
+          {{specimen.clinical.place}}<br/>
+          {{formatDate specimen.clinical.dob}}<br/>
+          -->
+          {{specimen.clinical.storage.display}}
+
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="bs">
-          bacterial stock
+          {{#with collection=collection object=specimen}}
+            {{> textfield name='stock.id' label='BS#' }}
+            {{> textfield name='stock.species' label='Species' }}
+            {{> textfield name='stock.strainId' label='Strain ID' }}
+            {{> textfield name='stock.phenotype' label='Phenotype' }}
+            {{> datefield name='stock.dateFrozen' label='Frozen' }}
+            {{> reffield id="storedByName" name='stock.storedBy.name' label='Stored By' ref='Users'
+              placeholder="Type Name"}}
+          {{/with}}
+
+          {{specimen.stock.id}}<br/>
+          {{specimen.stock.species}}<br/>
+          {{specimen.stock.strainId}}<br/>
+          {{specimen.stock.phenotype}}<br/>
+          {{formatDate specimen.stock.dateFrozen}}<br/>
+          {{specimen.stock.storedBy.name}}<br/>
+          {{specimen.stock.storage.display}}<br/>
+          {{#each specimen.stock.passages}}
+            passage...
+          {{/each}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="dna">
-          dna
+          {{#with collection=collection object=specimen}}
+            {{> textfield name='b.id' label='B#' }}
+
+
+            {{> datefield name='b.dateExtracted' label='Extracted' }}
+            {{> reffield id="extractedByName" name='b.extractedBy.name' label='Extracted By' ref='Users'
+              placeholder="Type Name"}}
+            {{> textfield name='b.concentration' label='Concentration' }}
+            {{> textfield name='b.volume' label='Volume' }}
+
+          {{/with}}
+
+          {{specimen.b.id}}<br/>
+          {{specimen.b.from.type}}<br/>
+          {{specimen.b.from.id}}<br/>
+          {{formatDate specimen.b.dateExtracted}}<br/>
+          {{specimen.b.extractedBy.name}}<br/>
+          {{specimen.b.concentration}}<br/>
+          {{specimen.b.volume}}<br/>
+          {{specimen.b.storage.display}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="gc">
-          gc
+          {{#with collection=collection object=specimen}}
+            {{> textfield name='gc.id' label='GC#' }}
+            {{> reffield id="madeByName" name='gc.madeBy.name' label='Made By' ref='Users'
+              placeholder="Type Name"}}
+            {{> textfield name='gc.genotype' label='Genotype' }}
+            {{> textfield name='gc.plasmid' label='Plasmid' }}
+            {{> textfield name='gc.resistance' label='Resistance' }}
+            {{> textfield name='gc.concentration' label='Concentration' }}
+
+          {{/with}}
+          {{specimen.gc.id}}<br/>
+          {{specimen.gc.madeBy.name}}<br/>
+          {{specimen.gc.genotype}}<br/>
+          {{specimen.gc.plasmid}}<br/>
+          {{specimen.gc.resistance}}<br/>
+          {{specimen.gc.concentration}}<br/>
+          {{specimen.gc.storage.display}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="lib">
           lib
         </div>
       </div>
-
+      </form>
     </div>
   {{else}}
     Loading...

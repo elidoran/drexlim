@@ -1,0 +1,18 @@
+<template name="datefield">
+
+  <div class="{{groupClass options.groupClass}}">
+    {{#if label}}
+      <div class="{{labelClass options.labelClass}}">
+        <label for="{{name}}">{{label}}</label>
+      </div>
+    {{/if}}
+
+    <div class="{{fieldClass options.fieldClass}}">
+      <input type="date" class="DF {{inputClass options.inputClass}}"
+        id="{{name}}" name="{{name}}"
+        value="{{dateValueFor ../object name 'YYYY-MM-DD'}}"
+        required="{{options.required}}">
+    </div>
+  </div>
+
+</template>

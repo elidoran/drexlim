@@ -1,9 +1,13 @@
 <template name="SpecimenRecent">
 
   {{#if Template.subscriptionsReady}}
-    {{> reactiveTable settings=settings}}
+
+    {{> reactiveTable id='recentSpecimens' settings=tableSettings}}
+
   {{else}}
-    {{> loading}}
+    <div class="center">
+      {{> loading}}
+    </div>
   {{/if}}
 
 </template>

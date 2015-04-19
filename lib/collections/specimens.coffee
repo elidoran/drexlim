@@ -7,8 +7,12 @@ Specimens.allow
   update: -> true
   remove: -> false
 
+Specimens.after.insert Op.afterInsert 'specimens'
 
-Specimens.attachSchema new SimpleSchema
+Specimens.after.update Op.afterUpdate 'specimens'
+
+Specimens.attachSchema new SimpleSchema [
+  Schema.CreatedAndUpdated
   ###
     Common Properties
   ###
@@ -32,7 +36,7 @@ Specimens.attachSchema new SimpleSchema
     type: String
     max:50
     optional:true
-  'collab.id': # _id is the _id used in Collaborator collection
+  'collab.refId': # _id is the _id used in Collaborator collection
     type: Meteor.ObjectID
     optional: true
   'collab.name': #their name so we can access it quickly
@@ -46,19 +50,18 @@ Specimens.attachSchema new SimpleSchema
     type: String
     max: 500
     optional: true
-  'project.id':
+  'project.refId':
     type: Meteor.ObjectID
     optional: true
-  'loggedBy.id':
+  'project.name':
+    type: String
+    optional:true
+  'loggedBy.refId':
     type: Meteor.ObjectID
     optional:true
   'loggedBy.name':
     type:String
     max:200
-    optional:true
-  studyCode:
-    type: String
-    max: 500
     optional:true
   tags:
     type: [String]
@@ -66,7 +69,7 @@ Specimens.attachSchema new SimpleSchema
   note:
     type: String
     optional: true
-  'storage.id':
+  'storage.refId':
     type: Meteor.ObjectID
     optional:true
   'storage.display':
@@ -103,7 +106,7 @@ Specimens.attachSchema new SimpleSchema
   'clinical.dob':
     type: Date
     optional:true
-  'clinical.storage.id':
+  'clinical.storage.refId':
     type: Meteor.ObjectID
     optional:true
   'clinical.storage.display':
@@ -135,14 +138,14 @@ Specimens.attachSchema new SimpleSchema
   'stock.dateFrozen':
     type: Date
     optional:true
-  'stock.storedBy.id':
+  'stock.storedBy.refId':
     type:Meteor.ObjectID
     optional:true
   'stock.storedBy.name':
     type: String
     max:200
     optional:true
-  'stock.storage.id':
+  'stock.storage.refId':
     type: Meteor.ObjectID
     optional:true
   'stock.storage.display':
@@ -156,7 +159,7 @@ Specimens.attachSchema new SimpleSchema
     type: String
     max:100
     optional:true
-  'b.from.id':
+  'b.from.refId':
     type:String
     max:100
     optional:true
@@ -168,7 +171,7 @@ Specimens.attachSchema new SimpleSchema
   'b.dateExtracted':
     type:Date
     optional:true
-  'b.extractedBy.id':
+  'b.extractedBy.refId':
     type: Meteor.ObjectID
     optional:true
   'b.extractedBy.name':
@@ -190,7 +193,7 @@ Specimens.attachSchema new SimpleSchema
   'gc.id':
     type: Meteor.ObjectID
     optional:true
-  'gc.madeBy.id':
+  'gc.madeBy.refId':
     type: Meteor.ObjectID
     optional:true
   'gc.madeBy.name':
@@ -213,13 +216,13 @@ Specimens.attachSchema new SimpleSchema
     type:String
     max:100
     optional:true
-  'gc.storage.id':
+  'gc.storage.refId':
     type: Meteor.ObjectID
     optional:true
   'gc.storage.display':
     type: String
     optional:true
-
+]
 Meteor.methods
 
   deleteSpecimen: ->

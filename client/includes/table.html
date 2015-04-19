@@ -1,0 +1,22 @@
+<template name="table">
+
+  {{#if Template.subscriptionsReady}}
+
+    {{> tableFilter id=filterId fields=fields }}
+    {{> reactiveTable id=tableId settings=settings}}
+
+  {{else}}
+    <div class="center">
+      {{> loading}}
+    </div>
+  {{/if}}
+
+</template>
+
+<template name="tableFilter">
+
+  <div class="pull-left col-sm-9" style="margin-bottom:-2em;">
+    {{> reactiveTableFilter id=id label="Search" fields=fields}}
+  </div>
+
+</template>

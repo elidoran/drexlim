@@ -1,5 +1,5 @@
 
-datePattern = /\d?\d\/\d{2}\/\d{4}/
+datePattern = /\d{1,2}\/\d{1,2}\/\d{4}/
 toDate = (dateString) ->
   #console.log "toDate #{dateString}"
   if dateString? and datePattern.test dateString
@@ -79,44 +79,84 @@ importData = ->
 
   csv = Meteor.npmRequire 'fast-csv'
 
+  created =
+    specimenCount:0
+    collabCount: 0
+    collab: {}
+    projectCount: 0
+    project: {}
+
   lineCount = 0
   line = (data) ->
     lineCount++
     if lineCount > -1
       #console.log "[#{headers[index]}] = [#{value}]" for value,index in data
 
-      if data?[19]? and data[19].length > 0
-        collab = Collaborators.findOne name:data[19]
-        unless collab?
-          collab =
-            _id: Collaborators.insert name:data[19]
-            name: data[19]
-      else
-        collab = null
+      collab = do (collabName = data[19]) ->
+        if collabName?.length > 0
+          collab = created.collab?[collabName]
+          #collab = Collaborators.findOne name:collabName
+          unless collab?
+            count = 3
+            while count-- >= 0
+              try
+                id = Collaborators.direct.insert name:collabName
+                created.collabCount++
+                collab = created.collab[collabName] =
+                  refId: id
+                  name: collabName
+              catch e
+                collab = Collaborators.direct.findOne name:collabName
+                unless collab?
+                  collab = created.collab[collabName]
+          return collab
+
+      project = do (studyCode = data[4]) ->
+        if studyCode? and studyCode.length > 0
+          project = created.project?[studyCode]
+          #project = Projects.findOne {code:studyCode}
+          unless project?
+            count = 3
+            while count-- >= 0
+              try
+                id = Projects.direct.insert {name:studyCode, code:studyCode}
+                created.projectCount++
+                project = created.project[studyCode] =
+                  refId: id
+                  name: studyCode
+              catch e
+                project = Projects.direct.findOne {name:studyCode, code:studyCode}
+                unless project?
+                  project = created.project[studyCode]
+          return project
 
       # already loaded Carol so... it's always her user ;)
-      logger = Meteor.users.findOne {'profile.name':data[20]}
-      unless logger?
-        console.log 'logger what? ',data[20]
-      #   logger =
-      #     id:
+      logger = do (loggerName = data[20]) ->
+        user = Meteor.users.findOne {'profile.name':loggerName}
+        unless user?
+          # can't create new user without knowing their email...
+          console.log 'Unknown logger: ',loggerName
+        else
+          return refId:user._id, name:user.profile.name
 
       # if comment says "by <name>" then they are the 'storedBy' value
       comment = data[26] ? ''
-      if comment? and comment.length > 0
-        if comment.indexOf 'Transported' is 0
-          index = comment.indexOf ' by '
-          if index > 0
-            storedByName = comment.substring index+4
-            index = storedByName.indexOf ','
+      storedByName = do (comment) ->
+        if comment? and comment.length > 0
+          if comment.indexOf 'Transported' is 0
+            index = comment.indexOf ' by '
             if index > 0
-              storedByName = storedByName.substring 0, index
-            #console.log 'Stored By Name: ',storedByName
+              storedByName = comment.substring index+4
+              index = storedByName.indexOf ','
+              if index > 0
+                storedByName = storedByName.substring 0, index
+              #console.log 'Stored By Name: ',storedByName
+        return storedByName
 
       specimen =
         _id: data[0]
         accession: ''
-        studyCode: data[4]
+        #studyCode: data[4]
         tags:['imported']
         note: comment # TODO: if 'Transported...by...' then don't put in notes?
         storage:
@@ -170,16 +210,15 @@ importData = ->
         #   concentration:
         #   volume:
 
-      if collab?
-        specimen.collab =
-          id: collab._id
-          name: collab.name
+      if collab?  then specimen.collab   = collab
+      else if data?[19].length > 0
+        console.log 'Collaborator exists, but, *NO* Collaborator set...:',data[19]
 
-      if logger?
-        specimen.loggedBy =
-          id: logger._id
-          name: logger.profile.name
+      if logger?  then specimen.loggedBy = logger
 
+      if project? then specimen.project  = project
+      else if data?[4].length > 0
+        console.log 'StudyCode exists, but, *NO* Project set...:',data[4]
       date = toDate data[15]
       if date?
         specimen.dateCollected = date
@@ -195,6 +234,7 @@ importData = ->
       #console.log 'New Specimen:\n  ',specimen
       try
         result = Specimens.upsert {_id:specimen._id}, {$set: specimen}, {multi:false}
+        created.specimenCount++
         if result?.numberAffected isnt 1 and not result.insertedId?
           console.log 'Problem with specimen:',specimen
       catch e
@@ -202,7 +242,7 @@ importData = ->
         console.log e
 
   finish = ->
-    console.log "lines = #{lineCount}"
+    console.log "lines = #{lineCount} specs+#{created.specimenCount} collab+#{created.collabCount} projects+#{created.projectCount}"
 
   try
     file = "#{process.cwd()}/../../../../../server/import.csv"
@@ -221,13 +261,13 @@ importData = ->
 
 Meteor.startup ->
 
-  result = Collaborators.findOne {name:'Carol Hope'}, {reactive:false}
-  console.log 'find carol: ',result
-  unless result?
-    carolId = Collaborators.insert {name:'Carol Hope'}
-    console.log 'carol id:',carolId
-  else
-    console.log 'carol collab exists'
+  # result = Collaborators.findOne {name:'Carol Hope'}, {reactive:false}
+  # console.log 'find carol: ',result
+  # unless result?
+  #   carolId = Collaborators.insert {name:'Carol Hope'}
+  #   console.log 'carol id:',carolId
+  # else
+  #   console.log 'carol collab exists'
 
   if Meteor.users.find().count() is 0
     addUsers.call this
