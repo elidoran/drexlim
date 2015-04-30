@@ -1,17 +1,17 @@
 <template name="datefield">
 
-  <div class="{{groupClass options.groupClass}}">
+  <div class="{{getGroupClass groupClass}}">
     {{#if label}}
-      <div class="{{labelClass options.labelClass}}">
+      <div class="{{getLabelClass labelClass}}">
         <label for="{{name}}">{{label}}</label>
       </div>
     {{/if}}
 
-    <div class="{{fieldClass options.fieldClass}}">
-      <input type="date" class="DF {{inputClass options.inputClass}}"
+    <div class="{{getFieldClass fieldClass}}">
+      <input type="date" class="DF {{getInputClass inputClass}}"
         id="{{name}}" name="{{name}}"
         value="{{dateValueFor ../object name 'YYYY-MM-DD'}}"
-        required="{{options.required}}">
+        required="{{required}}">
     </div>
   </div>
 

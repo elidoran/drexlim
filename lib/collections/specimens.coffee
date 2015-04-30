@@ -25,14 +25,18 @@ Specimens.attachSchema new SimpleSchema [
   dateCollected:
     type: Date
     optional: true
-  dateCollectedString:
-    type: String
-    max:50
-    optional:true
   dateReceived:
     type: Date
     optional: true
-  dateReceivedString:
+  imported:
+    type:Object
+    optional:true
+    blackbox:true
+  'imported.dateCollectedString':
+    type: String
+    max:50
+    optional:true
+  'imported.dateReceivedString':
     type: String
     max:50
     optional:true
@@ -72,7 +76,7 @@ Specimens.attachSchema new SimpleSchema [
   'storage.refId':
     type: Meteor.ObjectID
     optional:true
-  'storage.display':
+  'storage.name':
     type: String
     optional:true
 
@@ -83,6 +87,7 @@ Specimens.attachSchema new SimpleSchema [
     type: String
     max: 100
     optional:true
+    unique:true
   'clinical.tissue':
     type: String
     max: 200
@@ -106,6 +111,11 @@ Specimens.attachSchema new SimpleSchema [
   'clinical.dob':
     type: Date
     optional:true
+  'clinical.sex':
+    type: String
+    max: 1
+    allowedValues: [ 'M', 'F']
+    optional:true
   'clinical.storage.refId':
     type: Meteor.ObjectID
     optional:true
@@ -120,6 +130,7 @@ Specimens.attachSchema new SimpleSchema [
     type: String
     max:100
     optional:true
+    unique:true
   'stock.species':
     type: String
     max:200
@@ -159,6 +170,7 @@ Specimens.attachSchema new SimpleSchema [
     type: String
     max:100
     optional:true
+    unique:true
   'b.from.refId':
     type:String
     max:100
@@ -191,8 +203,9 @@ Specimens.attachSchema new SimpleSchema [
     General Construct properties
   ###
   'gc.id':
-    type: Meteor.ObjectID
+    type: String
     optional:true
+    unique:true
   'gc.madeBy.refId':
     type: Meteor.ObjectID
     optional:true

@@ -2,11 +2,20 @@
 
 <ul class="nav nav-sidebar">
   <li class="text-primary context-menu-header">Specimens</li>
-  <li class="{{at 'Specimen' 'Add'}}">
-    <a href="/app/data/Specimen/Add">
-      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-      {{#if at 'Specimen' 'Add'}}<span class="sr-only">(current)</span>{{/if}}
-    </a>
+
+  {{#if at 'Specimen' 'View'}}
+    <li class="{{at 'Specimen' 'View'}}">
+      <a href="#">
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> View
+      <span class="sr-only">(current)</span>
+      </a>
+    </li>
+  {{/if}}
+  <li class="{{at 'Specimen' 'Recent'}}">
+    <a href="/app/data/Specimen/Recent">
+    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
+    {{#if at 'Specimen' 'Recent'}}<span class="sr-only">(current)</span>{{/if}}
+  </a>
   </li>
   <li class="{{at 'Specimen' 'List'}}">
     <a href="/app/data/Specimen/List">
@@ -14,33 +23,41 @@
     {{#if at 'Specimen' 'List'}}<span class="sr-only">(current)</span>{{/if}}
   </a>
   </li>
-  <li class="{{at 'Specimen' 'Recent'}}">
-    <a href="/app/data/Specimen/Recent">
-    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
-    {{#if at 'Specimen' 'Recent'}}<span class="sr-only">(current)</span>{{/if}}
-  </a>
+  <li class="{{at 'Specimen' 'Add'}}">
+    <a href="/app/data/Specimen/Add">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+      {{#if at 'Specimen' 'Add'}}<span class="sr-only">(current)</span>{{/if}}
+    </a>
   </li>
+  <li class="disabled">
+    <a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Advanced Search</a>
+  </li>
+  {{!--
   <li class="{{at 'Specimen' 'Search'}}">
     <a href="/app/data/Specimen/Search">
     <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
     {{#if at 'Specimen' 'Search'}}<span class="sr-only">(current)</span>{{/if}}
   </a>
   </li>
+  --}}
 </ul>
 <ul class="nav nav-sidebar">
   <li class="text-primary context-menu-header">Storage Locations</li>
+  {{!--
   <li class="{{at 'Storage' 'Add'}}">
     <a href="/app/data/Storage/Add">
       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
       {{#if at 'Specimen' 'Add'}}<span class="sr-only">(current)</span>{{/if}}
     </a>
   </li>
+  --}}
   <li class="{{at 'Storage' 'List'}}">
     <a href="/app/data/Storage/List">
     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List
     {{#if at 'Storage' 'List'}}<span class="sr-only">(current)</span>{{/if}}
   </a>
   </li>
+  {{!--
   <li class="{{at 'Storage' 'Recent'}}">
     <a href="/app/data/Storage/Recent">
     <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span> Recent
@@ -53,6 +70,7 @@
     {{#if at 'Storage' 'Search'}}<span class="sr-only">(current)</span>{{/if}}
   </a>
   </li>
+  --}}
 </ul>
 
 </template>

@@ -8,3 +8,8 @@ Meteor.publish 'storages', (limit, sort) ->
   if limit? then options.limit = limit
   if sort? then options.sort = sort
   Storages.find { }, options
+
+ReactiveTable.publish 'storagesTable',
+  -> if this?.userId? then Storages else []
+  -> return {}  # selector function given to mongo
+  # fields list? leave it null sends all, right?

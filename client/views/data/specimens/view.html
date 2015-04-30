@@ -11,7 +11,7 @@
         <li role="presentation"><a href="#cs" aria-controls="cs" role="tab" data-toggle="tab">Clinical</a></li>
         <li role="presentation"><a href="#bs" aria-controls="bs" role="tab" data-toggle="tab">Bacterial Stock</a></li>
         <li role="presentation"><a href="#dna" aria-controls="dna" role="tab" data-toggle="tab">Bacteria/DNA</a></li>
-        <li role="presentation"><a href="#gc" aria-controls="gc" role="tab" data-toggle="tab">General Construct</a></li>
+        <li role="presentation"><a href="#gc" aria-controls="gc" role="tab" data-toggle="tab">Construct</a></li>
         <li role="presentation"><a href="#lib" aria-controls="lib" role="tab" data-toggle="tab">Libraries</a></li>
       </ul>
 
@@ -33,11 +33,11 @@
             {{> datefield name='dateCollected' label='Collected' }}
             {{> datefield name='dateReceived' label='Received' }}
             {{> reffield id="collabName" name='collab.name' label='Collaborator' ref='Collaborators'
-              placeholder="Type Name"}}
+              placeholder="Type Name" fieldClass='col-md-5'}}
             {{> reffield id="loggedByName" name='loggedBy.name' label='Logged By' ref='Users'
-              placeholder="Type Name"}}
+              placeholder="Type Name" fieldClass='col-md-5'}}
             {{> reffield id="projectName" name='project.name' label='Project' ref='Projects'
-              placeholder="Type Name"}}
+              placeholder="Type Name" fieldClass='col-md-5'}}
           {{/with}}
           <!--
           {{specimen.accession}}<br/>
@@ -47,8 +47,10 @@
           {{specimen.loggedBy.name}}<br/>
           {{specimen.project.name}}<br/>
           -->
+          {{!--
           {{specimen.tags}}<br/><!-- special select as tagging-->
           {{specimen.note}}<br/>
+          --}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="cs">

@@ -85,9 +85,14 @@ importData = ->
     collab: {}
     projectCount: 0
     project: {}
+    storage: {}
+    storageCount: 0
 
+  roomPattern = /(\d{4})/
+  transportPattern = /Transported.+by (\w+)[,\s]*/
   lineCount = 0
   line = (data) ->
+    specimenId = data[0]
     lineCount++
     if lineCount > -1
       #console.log "[#{headers[index]}] = [#{value}]" for value,index in data
@@ -109,6 +114,10 @@ importData = ->
                 collab = Collaborators.direct.findOne name:collabName
                 unless collab?
                   collab = created.collab[collabName]
+                else
+                  collab =
+                    refId: collab._id
+                    name: collabName
           return collab
 
       project = do (studyCode = data[4]) ->
@@ -128,7 +137,44 @@ importData = ->
                 project = Projects.direct.findOne {name:studyCode, code:studyCode}
                 unless project?
                   project = created.project[studyCode]
+                else
+                  project =
+                    refId: project._id
+                    name: studyCode
           return project
+
+      stored = do (location=data[21], shelf=data[22], rack=data[23], box=data[24], cell=data[25]) ->
+        if location?.length > 0
+          storage = created.storage?[specimenId]
+          unless storage?
+            count = 3
+            match = roomPattern.exec location
+            room = match?[1]
+            storage = location:location, specimenId:specimenId
+            storage.room = room if room?
+            if shelf? then storage.shelf = shelf
+            if rack? then storage.rack = rack
+            if box? then storage.box = box
+            if cell? then storage.cell = cell
+            if location.indexOf 'reezer' > -1 then storage.type = 'Freezer'
+            if location.indexOf 'refrigerator' then storage.type = 'Fridge'
+            while count-- >= 0
+              try
+                id = Storages.direct.insert storage
+                created.storageCount++
+                storage = created.storage[specimenId] =
+                  refId: id
+                  name: location
+              catch e
+                storage = Storages.direct.findOne specimenId:specimenId
+                unless storage?
+                  storage = created.storage[specimenId]
+                else
+                  storage =
+                    refId:storage._id
+                    name:location
+          return storage
+
 
       # already loaded Carol so... it's always her user ;)
       logger = do (loggerName = data[20]) ->
@@ -142,27 +188,21 @@ importData = ->
       # if comment says "by <name>" then they are the 'storedBy' value
       comment = data[26] ? ''
       storedByName = do (comment) ->
-        if comment? and comment.length > 0
-          if comment.indexOf 'Transported' is 0
-            index = comment.indexOf ' by '
-            if index > 0
-              storedByName = comment.substring index+4
-              index = storedByName.indexOf ','
-              if index > 0
-                storedByName = storedByName.substring 0, index
-              #console.log 'Stored By Name: ',storedByName
-        return storedByName
+        if comment?.length > 0
+          match = transportPattern.exec comment
+          theName = match?[1]
+        return theName
 
       specimen =
-        _id: data[0]
+        _id: specimenId
         accession: ''
         #studyCode: data[4]
         tags:['imported']
         note: comment # TODO: if 'Transported...by...' then don't put in notes?
-        storage:
-          display: data[21]
+        # storage:
+        #   display: data[21]
         clinical:
-          id:'?'
+          #id:'?'
           tissue:data[5]
           subject:data[6]
           indication:data[9]
@@ -196,7 +236,8 @@ importData = ->
           #storage:
           #  id
           #  display
-        # b:
+        b:
+          id: data[1]
         #   fromStockId:
         #   dateExtracted:
         #   extracted:
@@ -219,17 +260,25 @@ importData = ->
       if project? then specimen.project  = project
       else if data?[4].length > 0
         console.log 'StudyCode exists, but, *NO* Project set...:',data[4]
+
       date = toDate data[15]
       if date?
         specimen.dateCollected = date
       else if data?[15]? and data[15].length > 0
-        specimen.dateCollectedString = data[15]
+        unless specimen?.imported? then specimen.imported = {}
+        specimen.imported.dateCollectedString = data[15]
 
       date = toDate data[16]
       if date?
         specimen.dateReceived = date
       else if data?[16]? and data[16].length > 0
-        specimen.dateReceivedString = data[16]
+        unless specimen?.imported? then specimen.imported = {}
+        specimen.imported.dateReceivedString = data[16]
+
+      if specimen._id is '40366'
+        specimen.dateCollected = toDate '06/04/2014'
+        unless specimen?.imported? then specimen.imported = {}
+        specimen.imported = dateCollected2:toDate '09/24/2014'
 
       #console.log 'New Specimen:\n  ',specimen
       try
@@ -242,7 +291,7 @@ importData = ->
         console.log e
 
   finish = ->
-    console.log "lines = #{lineCount} specs+#{created.specimenCount} collab+#{created.collabCount} projects+#{created.projectCount}"
+    console.log "lines = #{lineCount} specs+#{created.specimenCount} collab+#{created.collabCount} projects+#{created.projectCount} storages+#{created.storageCount}"
 
   try
     file = "#{process.cwd()}/../../../../../server/import.csv"

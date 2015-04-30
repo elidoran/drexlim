@@ -12,6 +12,14 @@ a.navbar-brand {
   font-size: @font-size-large;
 }
 
+.navbar-fixed-bottom {
+  padding:10px;
+
+    h4 {
+      margin:0;
+    }
+}
+
 .context-menu-header {
   padding-left: 10px;
   font-size: 1.25em;
@@ -26,4 +34,132 @@ a.navbar-brand {
 .nav-tabs li {
   margin-bottom:0;
   border-bottom-color: @drexel-primary-blue;
+}
+
+div.table-filter-specimenListFilter {
+  margin-bottom:-2em;
+}
+
+/*
+<span class="tt-dropdown-menu">
+  {{#datasets}}
+    <div class="tt-dataset-{{name}}">
+      {{{header}}}
+      <span class="tt-suggestions">
+        {{#suggestions}}
+          <div class="tt-suggestion">{{{suggestion}}}</div>
+        {{/suggestions}}
+        {{^suggestions}}
+          {{{empty}}}
+        {{/suggestions}}
+      </span>
+      {{{footer}}}
+    </div>
+  {{/datasets}}
+</span>
+*/
+
+span.twitter-typeahead {
+  width: 100%;
+
+  .tt-dropdown-menu {
+    &:extend(.dropdown-menu);
+    color:@drexel-primary-blue;
+    background-color:white;
+    padding: 0;
+  }
+
+  .tt-suggestion > p {
+    &:extend(.dropdown-menu > li > a);
+    color:@drexel-primary-blue;
+    margin: 0;
+    &:hover,
+    &:focus {
+  	   &:extend(.dropdown-menu > .active > a);
+       color:@drexel-primary-blue;
+       background-color:@drexel-primary-yellow;
+    }
+  }
+
+  .tt-suggestion.tt-cursor > p {
+    &:extend(.dropdown-menu > .active > a);
+    color:@drexel-primary-blue;
+    background-color:@drexel-primary-yellow;
+
+  }
+
+  .input-group & {
+    display: block !important;
+    .tt-dropdown-menu {
+  		top:32px !important;
+  	}
+  }
+
+  .input-group.input-group-lg & {
+    .tt-dropdown-menu {
+    		top:44px !important;
+    }
+  }
+
+  .input-group.input-group-sm & {
+    .tt-dropdown-menu {
+    		top:28px !important;
+    }
+  }
+}
+/*
+.twitter-typeahead {
+  position:relative;
+  width:100%;
+  display:block !important;
+}
+
+.tt-dropdown-menu {
+  color:@drexel-primary-blue;
+  background-color:white;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+//.tt-dataset {} // it adds dataset name to tail of this after a hyphen... annoying
+.tt-suggestions {}
+
+.tt-suggestion {
+  padding: 5px;
+  border: 1px solid @drexel-accent-gray;
+}
+
+.tt-suggestion.tt-cursor {
+  background-color:@drexel-primary-yellow;
+  border-color: @drexel-primary-blue;
+}
+/*
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {}
+
+.twitter-typeahead .tt-hint {}
+.twitter-typeahead .tt-query {}
+
+.tt-suggestion.tt-is-under-cursor {}
+.tt-suggestion.tt-is-under-cursor a {}
+.tt-suggestion p {}
+* /
+*/
+
+.tab-content {
+  padding-top:1em;
 }
